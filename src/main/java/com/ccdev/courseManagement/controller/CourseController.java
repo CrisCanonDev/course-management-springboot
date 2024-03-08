@@ -2,11 +2,13 @@ package com.ccdev.courseManagement.controller;
 
 import com.ccdev.courseManagement.entity.Course;
 import com.ccdev.courseManagement.repository.CourseRepository;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -32,8 +34,8 @@ public class CourseController {
     }
 
     @GetMapping("/courses/new")
-    public String addCourse(Model model){
-        List<String> semesters = Arrays.asList("Spring","Autumn");
+        public String addCourse(Model model){
+            List<String> semesters = Arrays.asList("Spring","Autumn");
         Course course = new Course();
         course.setPublished(true);
         model.addAttribute("course", course);
@@ -48,8 +50,39 @@ public class CourseController {
             courseRepository.save(course);
             redirectAttributes.addFlashAttribute("message", "the course has been saved successfully.");
         }catch (Exception e){
-            redirectAttributes.addAttribute("message", e.getMessage());
+            redirectAttributes.addFlashAttribute("message", e.getMessage());
         }
         return "redirect:/courses";
     }
+
+    @GetMapping("/courses/{id}")
+    public String editCourse(@PathVariable Integer id,Model model, RedirectAttributes redirectAttributes){
+        try {
+            Course course = courseRepository.findById(id).get();
+            model.addAttribute("course",course);
+
+            model.addAttribute("pageTitle","Edit course of id "+id);
+
+            List<String> semesters = Arrays.asList("Spring","Autumn");
+            model.addAttribute("semesters", semesters);
+
+            redirectAttributes.addFlashAttribute("message", "the course has been edited successfully.");
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("message", e.getMessage());
+        }
+        return "courses_form";
+    }
+
+    @GetMapping("/courses/delete/{id}")
+    public String deleteCourse(@PathVariable Integer id, RedirectAttributes redirectAttributes){
+        try{
+            courseRepository.deleteById(id);
+            redirectAttributes.addFlashAttribute("message", "the course has been deleted successfully.");
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("message", e.getMessage());
+
+        }
+        return "redirect:/courses";
+    }
+
 }
