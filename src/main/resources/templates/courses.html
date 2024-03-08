@@ -9,7 +9,18 @@
 
   <div class="container" th:replace="fragments/header::header"></div>
 
-  <h1>List of Courses</h1>
+  <div class="container mb-5 p-3">
+    <div class="container mb-5">
+      <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show text-center message">
+        [[${message}]]
+        <button type="button" class="close btn-sm" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">✖</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
   <div class="container">
       <table class="table table-hover table-bordered">
           <thead class="thead-dark">
