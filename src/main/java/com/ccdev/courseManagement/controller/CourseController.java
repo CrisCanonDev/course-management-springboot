@@ -66,11 +66,11 @@ public class CourseController {
             List<String> semesters = Arrays.asList("Spring","Autumn");
             model.addAttribute("semesters", semesters);
 
-            redirectAttributes.addFlashAttribute("message", "the course has been edited successfully.");
+            return "course_form";
         }catch (Exception e){
             redirectAttributes.addFlashAttribute("message", e.getMessage());
         }
-        return "courses_form";
+        return "redirect:/courses";
     }
 
     @GetMapping("/courses/delete/{id}")
