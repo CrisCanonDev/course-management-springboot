@@ -60,13 +60,17 @@ public class ExportCoursesPDF {
 
         document.add(paragraph);
 
-        PdfPTable table = new PdfPTable( attributes.size());
+        PdfPTable table = new PdfPTable(attributes.size());
         table.setWidthPercentage(100f);
-        table.setWidths(new float []{1.2f,3.0f, 2.0f, 1.3f});
+        table.setWidths(new float[]{0.8f,3.5f,3.5f,1.3f,2.5f,2.3f});
         table.setSpacingBefore(10);
+
 
         writeTableHeader(table);
         writeTableData(table);
+        document.add(table);
+
+        document.close();
 
     }
 }

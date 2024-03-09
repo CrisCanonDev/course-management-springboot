@@ -1,6 +1,7 @@
 package com.ccdev.courseManagement.controller;
 
 import com.ccdev.courseManagement.entity.Course;
+import com.ccdev.courseManagement.reports.ExportCoursesExcel;
 import com.ccdev.courseManagement.reports.ExportCoursesPDF;
 import com.ccdev.courseManagement.repository.CourseRepository;
 import jakarta.servlet.http.HttpServletResponse;
@@ -34,5 +35,21 @@ public class ExportsController {
 
         ExportCoursesPDF exportCoursesPDF = new ExportCoursesPDF(courses);
         exportCoursesPDF.export(response);
+    }
+    @GetMapping("/export/excel")
+    public void generateExportExcel(HttpServletResponse response) throws  IOException{
+        response.setContentType("application/octet-stream");
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentTimeFormat = dateFormat.format(new Date());
+
+        String headerKey ="Content-Disposition";
+        String headerValue = "attachment; filename=courses"+currentTimeFormat+".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        List<Course> courses = courseRepository.findAll();
+
+        ExportCoursesExcel exportCoursesExcel = new ExportCoursesExcel(courses);
+        exportCoursesExcel.export(response);
     }
 }

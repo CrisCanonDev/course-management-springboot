@@ -27,7 +27,6 @@ public class Course {
     @Column(nullable = false)
     private int level;
 
-
     private String semester;
 
     @Column(name = "publish_state")

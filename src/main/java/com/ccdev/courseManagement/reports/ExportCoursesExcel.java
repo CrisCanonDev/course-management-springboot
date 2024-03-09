@@ -18,7 +18,7 @@ public class ExportCoursesExcel {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
     private List<Course> courses;
-    List<String> attributes = Arrays.asList("ID","TITLE","DE    SCRIPTION","LEVEL","SEMESTER","PUBLISHED");
+    List<String> attributes = Arrays.asList("ID","TITLE","DESCRIPTION","LEVEL","SEMESTER","PUBLISHED");
 
 
     public ExportCoursesExcel(List<Course> courses){
@@ -34,6 +34,10 @@ public class ExportCoursesExcel {
         XSSFFont font = workbook.createFont();
         font.setBold(true);
         style.setFont(font);
+
+        for(int i=0; i<attributes.size(); i++) {
+            createCell(row, i, attributes.get(i), style);
+        }
     }
 
     public void createCell(Row row, int columnCount, Object value, CellStyle style){
@@ -43,9 +47,7 @@ public class ExportCoursesExcel {
         setValueOfInstance(row, columnCount, value);
         cell.setCellStyle(style);
 
-        for(int i=0; i<attributes.size(); i++){
-            createCell(row, i, attributes.get(i), style);
-        }
+
     }
     public void setValueOfInstance(Row row, int columnCount,Object value){
         Cell cell = row.createCell(columnCount);
@@ -68,7 +70,7 @@ public class ExportCoursesExcel {
         font.setFontHeight(14);
         style.setFont(font);
 
-        for(Course course: courses){
+        for(Course course:courses){
             int columnCount = 0;
             Row row = sheet.createRow(rowCount++);
             createCell(row, columnCount++, course.getId(), style);
@@ -80,7 +82,7 @@ public class ExportCoursesExcel {
         }
     }
 
-    private void export(HttpServletResponse response) throws IOException{
+    public void export(HttpServletResponse response) throws IOException{
         writeHeader();
         writeDataLines();
 
