@@ -22,12 +22,13 @@ public class ExportsController {
     @GetMapping("/export/pdf")
     public void generateExportPDF(HttpServletResponse response) throws IOException {
         response.setContentType("application/pdf");
-        
+
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentTimeFormat = dateFormat.format(new Date());
 
         String headerKey ="Content-Disposition";
         String headerValue = "attachment; filename=courses"+currentTimeFormat+".pdf";
+        response.setHeader(headerKey, headerValue);
 
         List<Course> courses = courseRepository.findAll();
 
