@@ -1,7 +1,7 @@
 package com.ccdev.courseManagement.controller;
 
 import com.ccdev.courseManagement.entity.Course;
-import com.ccdev.courseManagement.reports.ExportCoursePDF;
+import com.ccdev.courseManagement.reports.ExportCoursesPDF;
 import com.ccdev.courseManagement.repository.CourseRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class ExportsController {
 
         List<Course> courses = courseRepository.findAll();
 
-        ExportCoursePDF exportCoursePDF = new ExportCoursePDF(courses);
-        exportCoursePDF.export(response);
+        ExportCoursesPDF exportCoursesPDF = new ExportCoursesPDF(courses);
+        exportCoursesPDF.export(response);
     }
 }

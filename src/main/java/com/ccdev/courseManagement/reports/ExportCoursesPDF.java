@@ -6,7 +6,6 @@ import com.lowagie.text.Font;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.awt.*;
@@ -14,11 +13,11 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class ExportCoursePDF {
+public class ExportCoursesPDF {
     private List<Course> courses;
     List<String> attributes = Arrays.asList("ID","TITLE","DESCRIPTION","LEVEL","SEMESTER","PUBLISHED");
 
-    public ExportCoursePDF(List<Course> courses){
+    public ExportCoursesPDF(List<Course> courses){
         this.courses = courses;
     }
 
