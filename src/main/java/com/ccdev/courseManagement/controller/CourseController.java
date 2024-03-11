@@ -2,8 +2,6 @@ package com.ccdev.courseManagement.controller;
 
 import com.ccdev.courseManagement.entity.Course;
 import com.ccdev.courseManagement.repository.CourseRepository;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -43,10 +41,12 @@ public class CourseController {
             if(keyword == null){
                 pageCourses = courseRepository.findAll(pages);
             }else{
-                pageCourses = courseRepository.fingTitleIgnoringCase(keyword, pages);
+                pageCourses = courseRepository.findByTitleContainingIgnoreCase(keyword, pages);
                 model.addAttribute("keyword", keyword);
             }
+            courses = pageCourses.getContent();
             model.addAttribute("courses", courses);
+
             model.addAttribute("currentPage", pageCourses.getNumber() + 1);
             model.addAttribute("totalItems", pageCourses.getTotalElements());
             model.addAttribute("totalPages", pageCourses.getTotalPages());
