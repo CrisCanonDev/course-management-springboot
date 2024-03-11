@@ -31,7 +31,7 @@
 ![](/images/editingCourse.png)
 
 ### Excel Report.
-![](images/excelExport.png)
+![](images/excelExport1.png)
 
 ### PDF Report.
 ![](images/pdfExport.png)
