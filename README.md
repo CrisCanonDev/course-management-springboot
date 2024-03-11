@@ -15,7 +15,9 @@
 * Lombok.
 * Validations.
 * Report Generation Excel / PDF through dependencies' usage.
-
+* Filtering.
+* Pagination.
+* Searching.
 ---
 ## Site
 
@@ -31,17 +33,18 @@
 ### Excel Report.
 ![](images/excelExport.png)
 
-
 ### PDF Report.
 ![](images/pdfExport.png)
+
+### Searching feature.
+![](images/searching.png)
+
+### Filtering and pagination.
+![](images/filteringPagination.png)
 
 ---
 ## Built with
 - [Spring](https://spring.io/) - Frameworks for fast, secure and responsive web applications connected to any data storage.
 - [Thymeleaf](https://www.thymeleaf.org/) - modern server-side Java template engine for both web and standalone environments.
 - [Bootstrap](http://getbootstrap.com/) - Extensive list of components and  Bundled Javascript plugins.
-
-
-## To-do
-- Add Features as pagination, filtering, searching.
 
