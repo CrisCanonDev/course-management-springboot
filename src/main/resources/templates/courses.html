@@ -28,7 +28,7 @@
     <div class="container mb-3">
       <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show text-center message">
         [[${message}]]
-        <button type="button" class="close btn-sm" data-dismiss="alert" aria-label="Cerrar">
+        <button type="button" class="close btn-sm" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">✖</span>
         </button>
       </div>
@@ -61,7 +61,7 @@
   </div>
 
 
-  <div class="container">
+  <div class="container" th:if="${courses.size() > 0}">
     <div class="row mb-3">
       <div class="col-md-12 d-flex justify-content-left">
         <a th:href="@{/export/pdf}" class="btn btn-danger">Export PDF</a>
@@ -104,6 +104,42 @@
       </table>
   </div>
 
+  <div class="container" th:unless="${courses.size() > 0}">
+    <span>Course not found.</span>
+  </div>
+
+  <nav aria-label="Pagination" th:if="${totalPages >0}">
+    <ul class="pagination justify-content-center">
+
+      <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+        <a th:replace="fragments/paging::paging(1, '<<', 'First Page')"></a>
+      </li>
+
+      <li class="page-item font-weight-bold" th:classappend="${currentPage == 1} ? 'disabled'">
+        <a th:replace="fragments/paging::paging(${currentPage - 1}, 'Prev', 'Previous Page')"></a>
+      </li>
+      <li class="page-item disabled" th:if="${currentPage - 2 > 1}">
+        <a class="page-link" href="#">...</a>
+      </li>
+
+      <li class="page-item" th:classappend="${page == currentPage} ? 'active'"
+          th:each="page : ${#numbers.sequence(currentPage > 2 ? currentPage - 2 : 1,currentPage + 2 < totalPages ? currentPage + 2 : totalPages)}">
+        <a th:replace="fragments/paging :: paging(${page},${page},'Page' + ${page})"></a>
+      </li>
+
+      <li class="page-item disabled" th:if="${currentPage + 2 < totalPages}">
+        <a class="page-link" href="#">...</a>
+      </li>
+
+      <li class="page-item font-weight-bold" th:classappend="${currentPage == totalPages} ? 'disabled'">
+        <a th:replace="fragments/paging :: paging(${currentPage + 1},'Next','Next page')"></a>
+      </li>
+
+      <li class="page-item font-weight-bold" th:classappend="${currentPage == totalPages} ? 'disabled'">
+        <a th:replace="fragments/paging::paging(${totalPages}, '>>', 'Last Page')"></a>
+      </li>
+    </ul>
+  </nav>
 
   <script type="text/javascript">
     function changePageSize() {
